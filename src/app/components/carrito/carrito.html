@@ -1,0 +1,141 @@
+<section class="cart">
+
+  <h2 class="title">
+    Carrito
+  </h2>
+
+  @if (carrito().length === 0) {
+
+    <p class="empty">
+      Tu carrito está vacío.
+    </p>
+
+  } @else {
+
+    <ul class="list">
+
+      @for (
+        producto of carrito();
+        track $index
+      ) {
+
+        <li class="item">
+
+          <div class="info">
+
+            <span class="line">
+
+              {{ producto.name }}
+
+              -
+
+              {{ producto.price | currency:'MXN' }}
+
+              @if (
+                producto.cantidad &&
+                producto.cantidad > 1
+              ) {
+
+                <span class="cantidad">
+
+                  x{{ producto.cantidad }}
+
+                </span>
+
+              }
+
+            </span>
+
+          </div>
+
+          <!-- ACCIONES -->
+          <div class="acciones-carrito">
+
+            <!-- SELECTOR -->
+            <div class="selector-cantidad">
+
+              <button
+                class="cantidad-btn"
+                (click)="
+                  decrementarEliminar(
+                    producto
+                  )
+                "
+              >
+                -
+              </button>
+
+              <span class="cantidad-numero">
+
+                {{
+
+                  cantidadesEliminar[
+                    producto.id
+                  ] || 1
+
+                }}
+
+              </span>
+
+              <button
+                class="cantidad-btn"
+                (click)="
+                  incrementarEliminar(
+                    producto
+                  )
+                "
+              >
+                +
+              </button>
+
+            </div>
+
+            <!-- ELIMINAR -->
+            <button
+              class="btn danger"
+              (click)="
+                eliminarSeleccionados(
+                  producto
+                )
+              "
+            >
+              Eliminar
+            </button>
+
+          </div>
+
+        </li>
+
+      }
+
+    </ul>
+
+    <div class="total">
+
+      Total:
+
+      {{ total() | currency:'MXN' }}
+
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="btn"
+        (click)="vaciar()"
+      >
+        Vaciar carrito
+      </button>
+
+      <a
+        routerLink="/checkout"
+        class="btn"
+      >
+        Ir al Checkout
+      </a>
+
+    </div>
+
+  }
+
+</section>

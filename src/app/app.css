@@ -1,0 +1,277 @@
+body {
+
+  margin: 0;
+
+  font-family: 'Poppins', sans-serif;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #ede9fe 0%,
+      #f5f3ff 25%,
+      #ffffff 65%
+    );
+
+  min-height: 100vh;
+
+}
+
+/* SCROLL */
+
+html {
+
+  scroll-behavior: smooth;
+
+}
+
+/* HEADER */
+
+.app-header {
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 1000;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 16px 40px;
+
+  background: rgba(255, 255, 255, 0.7);
+
+  backdrop-filter: blur(12px);
+
+  border-bottom:
+    1px solid rgba(255,255,255,0.4);
+
+  box-shadow:
+    0 8px 30px rgba(122,60,255,0.08);
+
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+
+}
+
+/* LOGO */
+
+.logo {
+
+  font-size: 28px;
+
+  font-weight: bold;
+
+  color: #7a3cff;
+
+  letter-spacing: 2px;
+
+}
+
+/* NAV */
+
+nav {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+
+}
+
+/* LINKS */
+
+nav a {
+
+  text-decoration: none;
+
+  color: #2d1b4e;
+
+  font-weight: bold;
+
+  padding: 10px 16px;
+
+  border-radius: 12px;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease,
+    color 0.3s ease;
+
+}
+
+/* HOVER */
+
+nav a:hover {
+
+  background:
+    linear-gradient(
+      135deg,
+      #7a3cff,
+      #b57cff
+    );
+
+  color: white;
+
+  transform: translateY(-2px);
+
+}
+
+/* ACTIVE */
+
+.active {
+
+  background:
+    linear-gradient(
+      135deg,
+      #7a3cff,
+      #b57cff
+    );
+
+  color: white !important;
+
+  box-shadow:
+    0 4px 12px rgba(122,60,255,0.25);
+
+}
+
+/* CHECKOUT BTN */
+
+.checkout-btn {
+
+  background:
+    linear-gradient(
+      135deg,
+      #7a3cff,
+      #b57cff
+    );
+
+  color: white !important;
+
+}
+
+/* USER SECTION */
+
+.user-section {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+}
+
+/* USERNAME */
+
+.usuario {
+
+  color: #2d1b4e;
+
+  font-weight: bold;
+
+  background: rgba(122,60,255,0.08);
+
+  padding: 8px 14px;
+
+  border-radius: 999px;
+
+}
+
+/* LOGOUT */
+
+.logout-btn {
+
+  border: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff4d4d,
+      #ff2d2d
+    );
+
+  color: white;
+
+  padding: 10px 16px;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  box-shadow:
+    0 4px 12px rgba(255,77,77,0.25);
+
+}
+
+/* LOGOUT HOVER */
+
+.logout-btn:hover {
+
+  transform: scale(1.05);
+
+  box-shadow:
+    0 8px 18px rgba(255,77,77,0.35);
+
+}
+
+/* BADGE */
+
+.badge {
+
+  background:
+    linear-gradient(
+      135deg,
+      #7a3cff,
+      #b57cff
+    );
+
+  color: white;
+
+  border-radius: 999px;
+
+  padding: 3px 9px;
+
+  margin-left: 6px;
+
+  font-size: 12px;
+
+  font-weight: bold;
+
+  box-shadow:
+    0 4px 10px rgba(122,60,255,0.3);
+
+}
+
+h1, h2, h3 {
+
+  font-weight: 600;
+
+  letter-spacing: -0.5px;
+
+}
+
+p {
+
+  font-weight: 400;
+
+  color: #555;
+
+}
+
+button {
+
+  font-family: 'Poppins', sans-serif;
+
+}

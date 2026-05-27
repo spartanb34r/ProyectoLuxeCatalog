@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalogo>
+    <producto>
+        <id>1</id>
+        <name>Saco</name>
+        <price>40000</price>
+        <imageUrl>https://e01-phantom-expansion.uecdn.es/d88a1b516a3f410c2d59af61ec31863f/resize/828/f/webp/assets/multimedia/imagenes/2023/10/09/16968467736917.png</imageUrl>
+        <category>Sacos</category>
+        <description>Saco de lujo verde</description>
+        <inStock>true</inStock>
+    </producto>
+
+    <producto>
+        <id>2</id>
+        <name>Corbata de oro</name>
+        <price>2000</price>
+        <imageUrl>https://rosamx.store/cdn/shop/files/Corbata_Asher.jpg?v=1770137525&amp;width=1582</imageUrl>
+        <category>Corbatas</category>
+        <description>Corbata bañada de oro 24 kilates</description>
+        <inStock>true</inStock>
+    </producto>
+
+    <producto>
+        <id>3</id>
+        <name>Zapato de piel de cocodrilo</name>
+        <price>599</price>
+        <imageUrl>https://m.media-amazon.com/images/I/71M3QBbNpEL._AC_UY900_.jpg</imageUrl>
+        <category>Zapatos</category>
+        <description>Zapatos hechos con piel de cocodrilo</description>
+        <inStock>true</inStock>
+    </producto>
+
+    <producto>
+        <id>4</id>
+        <name>Reloj Elegante Plateado</name>
+        <price>3500</price>
+        <imageUrl>https://invictamexico.com/cdn/shop/products/886678348664_201_f766a8fa-94b2-4ce1-a7d6-4dc9d763088a.jpg?v=1661956495&amp;width=1946</imageUrl>
+        <category>Accesorios</category>
+        <description>Reloj formal con correa metálica plateada</description>
+        <inStock>true</inStock>
+    </producto>
+
+    <producto>
+        <id>5</id>
+        <name>Camisa Azul Marino Premium</name>
+        <price>3200</price>
+        <imageUrl>https://michelblanc.mx/cdn/shop/files/IMG-20230707-WA0023.jpg?v=1689371501</imageUrl>
+        <category>Camisas</category>
+        <description>Camisa elegante de algodón corte slim fit</description>
+        <inStock>false</inStock>
+    </producto>
+</catalogo>

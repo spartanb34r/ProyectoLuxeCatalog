@@ -1,0 +1,62 @@
+@if (mostrarHeader) {
+
+<header class="app-header">
+
+  <div class="logo">
+
+    LUXE CATALOG
+
+  </div>
+
+  <nav>
+
+    <a
+      routerLink="/catalogo"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}"
+    >
+      Catálogo
+    </a>
+
+    <a
+      routerLink="/carrito"
+      routerLinkActive="active"
+    >
+      Carrito
+      <span class="badge">
+        {{ cantidadCarrito }}
+      </span>
+    </a>
+
+    <a
+      routerLink="/checkout"
+      routerLinkActive="active"
+      class="checkout-btn"
+    >
+      Checkout
+    </a>
+
+  </nav>
+
+  <div class="user-section">
+
+    <span class="usuario">
+
+      👤 {{ usuario?.usuario }}
+
+    </span>
+
+    <button
+      class="logout-btn"
+      (click)="logout()"
+    >
+      Cerrar sesión
+    </button>
+
+  </div>
+
+</header>
+
+}
+
+<router-outlet></router-outlet>

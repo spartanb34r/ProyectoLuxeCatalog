@@ -1,0 +1,337 @@
+.cart {
+
+  width: 100%;
+  max-width: 750px;
+
+  margin: 40px auto;
+
+  border: 1px solid #ddd5f3;
+
+  border-radius: 24px;
+
+  padding: 28px;
+
+  background: rgba(255,255,255,0.9);
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 10px 30px rgba(124, 58, 237, 0.12);
+
+}
+
+/* =========================
+   TITULO
+========================= */
+
+.title {
+
+  margin: 0 0 24px;
+
+  font-size: 32px;
+
+  color: #5b21b6;
+
+  text-align: center;
+
+  font-weight: 800;
+
+}
+
+/* =========================
+   VACIO
+========================= */
+
+.empty {
+
+  margin: 0;
+
+  color: #6b7280;
+
+  text-align: center;
+
+  font-size: 16px;
+
+}
+
+/* =========================
+   LISTA
+========================= */
+
+.list {
+
+  list-style: none;
+
+  padding: 0;
+  margin: 0;
+
+  display: grid;
+
+  gap: 18px;
+
+}
+
+/* =========================
+   ITEM
+========================= */
+
+.item {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 20px;
+
+  border: 1px solid #e9ddff;
+
+  border-radius: 18px;
+
+  padding: 18px;
+
+  background: #faf7ff;
+
+  transition: 0.25s;
+
+}
+
+.item:hover {
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 8px 24px rgba(124,58,237,0.12);
+
+}
+
+/* =========================
+   INFO
+========================= */
+
+.info {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+}
+
+.line {
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  color: #2e1065;
+
+}
+
+.cantidad {
+
+  color: #7c3aed;
+
+  font-weight: 700;
+
+  margin-left: 8px;
+
+}
+
+/* =========================
+   ACCIONES
+========================= */
+
+.acciones-carrito {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+}
+
+/* =========================
+   SELECTOR
+========================= */
+
+.selector-cantidad {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  background: #f3f0ff;
+
+  padding: 8px 12px;
+
+  border-radius: 14px;
+
+}
+
+.cantidad-btn {
+
+  width: 32px;
+
+  height: 32px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #7c3aed;
+
+  color: white;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+}
+
+.cantidad-btn:hover {
+
+  transform: scale(1.08);
+
+  background: #6d28d9;
+
+}
+
+.cantidad-numero {
+
+  min-width: 24px;
+
+  text-align: center;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  color: #4c1d95;
+
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.btn {
+
+  border: none;
+
+  border-radius: 12px;
+
+  padding: 10px 16px;
+
+  cursor: pointer;
+
+  font-weight: 700;
+
+  transition: 0.25s;
+
+  text-decoration: none;
+
+}
+
+.btn:hover {
+
+  transform: translateY(-2px);
+
+}
+
+.btn.danger {
+
+  background: #ef4444;
+
+  color: white;
+
+}
+
+.btn.danger:hover {
+
+  background: #dc2626;
+
+}
+
+.btn.purple {
+
+  background: #7c3aed;
+
+  color: white;
+
+}
+
+.btn.purple:hover {
+
+  background: #6d28d9;
+
+}
+
+/* =========================
+   TOTAL
+========================= */
+
+.total {
+
+  margin-top: 24px;
+
+  font-weight: 800;
+
+  color: #5b21b6;
+
+  font-size: 1.3rem;
+
+  text-align: right;
+
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions {
+
+  margin-top: 24px;
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 14px;
+
+  flex-wrap: wrap;
+
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+  .item {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+  }
+
+  .acciones-carrito {
+
+    width: 100%;
+
+    justify-content: space-between;
+
+  }
+
+}

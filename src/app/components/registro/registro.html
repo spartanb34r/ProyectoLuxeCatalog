@@ -1,0 +1,62 @@
+<div class="auth-container">
+
+  <div class="auth-card">
+
+    <div class="brand">
+
+      <h1>LUXE</h1>
+
+      <p>LUXE CATALOG</p>
+
+    </div>
+
+    <div class="welcome">
+
+      <h2>Crear cuenta</h2>
+
+      <span>
+        Regístrate para comenzar
+      </span>
+
+    </div>
+
+    <input
+      type="text"
+      placeholder="Usuario"
+      [(ngModel)]="usuario"
+    >
+
+    <input
+      type="email"
+      placeholder="Correo"
+      [(ngModel)]="correo"
+    >
+
+    <input
+      type="password"
+      placeholder="Contraseña"
+      [(ngModel)]="contrasena"
+    >
+
+    <button (click)="registrar()">
+      Registrarse
+    </button>
+
+    <a
+      routerLink="/login"
+      class="link-auth"
+    >
+      ¿Ya tienes cuenta? Inicia sesión
+    </a>
+
+    @if (mensaje) {
+
+      <p class="mensaje-error">
+        {{ mensaje }}
+      </p>
+
+    }
+
+  </div>
+
+</div>

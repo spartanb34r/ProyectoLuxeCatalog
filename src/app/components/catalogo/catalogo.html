@@ -1,0 +1,81 @@
+<section class="mini-hero">
+
+  <span class="mini-badge">
+    LUXE COLLECTION
+  </span>
+
+</section>
+
+@if (mensaje()) {
+  <div class="mensaje-exito">Producto agregado</div>
+}
+
+@if (mensajeStock()) {
+  <div class="mensaje-error">No hay suficiente stock disponible</div>
+}
+
+@if (productos.length === 0) {
+  <p>Cargando productos...</p>
+} @else {
+
+  <div class="filtros-container">
+
+  <input
+    type="text"
+    placeholder="🔍 Buscar producto..."
+    [(ngModel)]="busqueda"
+    class="buscador"
+  />
+
+  <select
+    [(ngModel)]="categoriaSeleccionada"
+    class="filtro-select"
+  >
+
+    @for (cat of categorias; track cat) {
+
+      <option [value]="cat">
+
+        {{ cat }}
+
+      </option>
+
+    }
+
+  </select>
+
+  <label class="stock-check">
+
+    <input
+      type="checkbox"
+      [(ngModel)]="soloDisponibles"
+    />
+
+    Solo disponibles
+
+  </label>
+
+</div>
+
+  <section class="grid" id="catalogo">
+    @for (p of productosFiltrados; track p.id; let i = $index;) {
+      <div class="producto-card" [style.--i]="i">
+        <div class="imagen-container">
+          <img 
+          [src]="p.imageUrl || 'https://placehold.co/300x200?text=Sin+imagen'" 
+          [alt]="p.name"/>
+        </div>
+        <h2>{{ p.name }}</h2>
+        <p>{{ p.description }}</p>
+        <p>Precio: ${{ p.price }}</p>
+        <p>{{p.stock > 0 ? 'Stock disponible: ' + p.stock : 'Sin stock'}}</p>
+        <div class="cantidad-selector">
+        <button (click)="disminuirCantidad(p)">-</button>
+        <span>{{ cantidades[p.id] || 1 }}</span>
+        <button (click)="aumentarCantidad(p)">+</button>
+        </div>
+        <button class="btn-agregar" [disabled]="p.stock <= 0" (click)="agregar(p)">Agregar</button>
+      </div>
+    }
+  </section>
+}
