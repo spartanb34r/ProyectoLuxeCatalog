@@ -1,10 +1,3 @@
-<section class="mini-hero">
-
-  <span class="mini-badge">
-    LUXE COLLECTION
-  </span>
-
-</section>
 
 @if (mensaje()) {
   <div class="mensaje-exito">Producto agregado</div>
@@ -18,64 +11,171 @@
   <p>Cargando productos...</p>
 } @else {
 
-  <div class="filtros-container">
+<div class="layout-catalogo" [class.sidebar-cerrado]="!sidebarAbierto">
+<div class="sidebar-wrapper">
 
-  <input
-    type="text"
-    placeholder="🔍 Buscar producto..."
-    [(ngModel)]="busqueda"
-    class="buscador"
-  />
+    <button class="toggle-sidebar" (click)="toggleSidebar()">
+      ☰
+    </button>
 
-  <select
-    [(ngModel)]="categoriaSeleccionada"
-    class="filtro-select"
-  >
+    <aside class="sidebar-filtros" [class.abierto]="sidebarAbierto">
 
-    @for (cat of categorias; track cat) {
+      
 
-      <option [value]="cat">
+      <h3>Filtros</h3>
 
-        {{ cat }}
+      <input
+        type="text"
+        placeholder="🔍 Buscar producto..."
+        [(ngModel)]="busqueda"
+        class="buscador"
+      />
 
-      </option>
+      <select
+        [(ngModel)]="categoriaSeleccionada"
+        class="filtro-select"
+      >
+        @for (cat of categorias; track cat) {
+          <option [value]="cat">
+            {{ cat }}
+          </option>
+        }
+      </select>
 
-    }
+      <label class="stock-check">
+        <input type="checkbox" [(ngModel)]="soloDisponibles" />
+        Solo disponibles
+      </label>
 
-  </select>
+    </aside>
 
-  <label class="stock-check">
+  </div>
 
-    <input
-      type="checkbox"
-      [(ngModel)]="soloDisponibles"
+  <!-- CATÁLOGO -->
+  <section id="catalogo">
+
+    @for (p of productosFiltrados; track p.id; let i = $index;) {
+
+      <div
+  class="producto-card"
+  [style.--i]="i"
+  (click)="abrirModal(p)"
+>
+
+  <div class="imagen-container">
+
+    <img
+      [src]="p.imageUrl || 'https://placehold.co/300x200?text=Sin+imagen'"
+      [alt]="p.name"
     />
 
-    Solo disponibles
+  </div>
 
-  </label>
+  <div class="card-info">
+
+    <h2>{{ p.name }}</h2>
+
+    <p class="precio">
+      ${{ p.price }}
+    </p>
+
+    <p
+      class="stock"
+      [class.sin-stock]="p.stock <= 0"
+    >
+      {{ p.stock > 0
+        ? p.stock + ' disponibles'
+        : 'Sin stock'
+      }}
+    </p>
+
+  </div>
 
 </div>
 
-  <section class="grid" id="catalogo">
-    @for (p of productosFiltrados; track p.id; let i = $index;) {
-      <div class="producto-card" [style.--i]="i">
-        <div class="imagen-container">
-          <img 
-          [src]="p.imageUrl || 'https://placehold.co/300x200?text=Sin+imagen'" 
-          [alt]="p.name"/>
-        </div>
-        <h2>{{ p.name }}</h2>
-        <p>{{ p.description }}</p>
-        <p>Precio: ${{ p.price }}</p>
-        <p>{{p.stock > 0 ? 'Stock disponible: ' + p.stock : 'Sin stock'}}</p>
-        <div class="cantidad-selector">
-        <button (click)="disminuirCantidad(p)">-</button>
-        <span>{{ cantidades[p.id] || 1 }}</span>
-        <button (click)="aumentarCantidad(p)">+</button>
-        </div>
-        <button class="btn-agregar" [disabled]="p.stock <= 0" (click)="agregar(p)">Agregar</button>
-      </div>
     }
+
   </section>
+
+  @if (productoSeleccionado) {
+
+<div
+  class="modal-overlay"
+  (click)="cerrarModal()"
+>
+
+  <div
+    class="modal-producto"
+    (click)="detenerCierre($event)"
+  >
+
+    <button
+      class="cerrar-modal"
+      (click)="cerrarModal()"
+    >
+      ✕
+    </button>
+
+    <img
+      [src]="productoSeleccionado.imageUrl"
+      [alt]="productoSeleccionado.name"
+    />
+
+    <h2>
+      {{ productoSeleccionado.name }}
+    </h2>
+
+    <p class="descripcion-modal">
+      {{ productoSeleccionado.description }}
+    </p>
+
+    <p class="precio-modal">
+      ${{ productoSeleccionado.price }}
+    </p>
+
+    <p class="stock-modal">
+
+      {{ productoSeleccionado.stock > 0
+        ? 'Stock disponible: ' + productoSeleccionado.stock
+        : 'Sin stock'
+      }}
+
+    </p>
+
+    <div class="cantidad-selector">
+
+      <button
+        (click)="disminuirCantidad(productoSeleccionado)"
+      >
+        -
+      </button>
+
+      <span>
+        {{ cantidades[productoSeleccionado.id] || 1 }}
+      </span>
+
+      <button
+        (click)="aumentarCantidad(productoSeleccionado)"
+      >
+        +
+      </button>
+
+    </div>
+
+    <button
+      class="btn-agregar"
+      [disabled]="productoSeleccionado.stock <= 0"
+      (click)="agregar(productoSeleccionado)"
+    >
+      Agregar al carrito
+    </button>
+
+  </div>
+
+</div>
+
+}
+
+</div>
+
 }

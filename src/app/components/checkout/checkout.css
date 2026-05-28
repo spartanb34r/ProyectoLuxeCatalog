@@ -1,78 +1,166 @@
 .checkout-container {
+
   position: relative;
 
   width: 100%;
-  min-height: calc(100vh - 80px);
+
+  min-height:
+    calc(100vh - 80px);
 
   display: flex;
-  flex-direction: column;
+
   justify-content: center;
+
   align-items: center;
 
   padding: 2rem;
+
 }
 
 .checkout-card {
+
   width: 100%;
   max-width: 500px;
 
-  background-color: white;
+  background: white;
 
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
+  border-radius: 20px;
 
   padding: 2rem;
 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
 
   text-align: center;
+
 }
 
 .checkout-card h2 {
+
   margin-top: 0;
+
   margin-bottom: 1.5rem;
-  font-size: 1.8rem;
-  color: #5b21b6;
+
+  font-size: 2rem;
+
+  color: #7c3aed;
+
 }
 
 .checkout-card h3 {
+
   margin-bottom: 1.5rem;
+
 }
 
 .checkout-item {
+
   margin: 10px 0;
+
   font-size: 15px;
+
 }
 
 .checkout-total {
+
   margin-top: 1rem;
+
   font-size: 1.2rem;
+
 }
 
 .paypal-container {
+
   margin-top: 1.5rem;
+
 }
 
-.volver-btn {
-  position: absolute;
+/* =========================
+   ALERTA FLOTANTE
+========================= */
+
+.mensaje-flotante {
+
+  position: fixed;
 
   top: 20px;
-  left: 20px;
+  right: 20px;
 
-  background-color: #6b7280;
+  padding: 16px 22px;
+
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #10b981,
+      #34d399
+    );
+
   color: white;
 
-  padding: 10px 16px;
+  font-weight: bold;
 
-  border-radius: 10px;
+  z-index: 99999;
 
-  text-decoration: none;
-  font-weight: 600;
+  box-shadow:
+    0 10px 25px rgba(16,185,129,0.3);
 
-  transition: 0.3s;
+  animation:
+    fadeInOut 3.5s ease forwards;
+
 }
 
-.volver-btn:hover {
-  background-color: #4b5563;
-  transform: translateY(-2px);
+.mensaje-flotante.error {
+
+  background:
+    linear-gradient(
+      135deg,
+      #ef4444,
+      #f87171
+    );
+
+  box-shadow:
+    0 10px 25px rgba(239,68,68,0.3);
+
+}
+
+@keyframes fadeInOut {
+
+  0% {
+
+    opacity: 0;
+
+    transform:
+      translateY(-10px);
+
+  }
+
+  10% {
+
+    opacity: 1;
+
+    transform:
+      translateY(0);
+
+  }
+
+  90% {
+
+    opacity: 1;
+
+    transform:
+      translateY(0);
+
+  }
+
+  100% {
+
+    opacity: 0;
+
+    transform:
+      translateY(-10px);
+
+  }
+
 }

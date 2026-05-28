@@ -326,6 +326,51 @@ export class CarritoService {
 
   }
 
+  actualizarCantidad(id: number, cambio: number) {
+
+  this.productosSignal.update(lista => {
+
+    const producto = lista.find(p => p.id === id);
+
+    if (!producto) return lista;
+
+    const stockMax = producto.stock;
+    const actual = producto.cantidad || 1;
+
+    const nuevaCantidad = actual + cambio;
+
+    // 🔴 BLOQUEO POR STOCK (AUMENTAR)
+    if (cambio > 0 && nuevaCantidad > stockMax) {
+
+      this.mensajeStock.set(true);
+
+      setTimeout(() => {
+        this.mensajeStock.set(false);
+      }, 2000);
+
+      return lista; // no cambia nada
+    }
+
+    // 🔴 SI BAJA A 0 → ELIMINAR
+    if (nuevaCantidad <= 0) {
+
+      const nuevaLista = lista.filter(p => p.id !== id);
+      this.guardarEnStorage(nuevaLista);
+
+      return nuevaLista;
+    }
+
+    // 🟢 ACTUALIZAR NORMAL
+    producto.cantidad = nuevaCantidad;
+
+    const nuevaLista = [...lista];
+
+    this.guardarEnStorage(nuevaLista);
+
+    return nuevaLista;
+  });
+}
+
   // =========================
   // EXPORTAR XML
   // =========================

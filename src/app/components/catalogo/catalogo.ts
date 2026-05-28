@@ -25,6 +25,7 @@ export class CatalogoComponent implements OnInit {
   categoriaSeleccionada = 'Todas';
   soloDisponibles = false;
   cantidades: { [key: number]: number } = {};
+  productoSeleccionado: Producto | null = null;
 
   get categorias(): string[] {
 
@@ -171,6 +172,30 @@ disminuirCantidad(producto: any) {
       actual - 1;
 
   }
+
+}
+
+sidebarAbierto = false;
+
+toggleSidebar() {
+  this.sidebarAbierto = !this.sidebarAbierto;
+}
+
+abrirModal(producto: Producto) {
+
+  this.productoSeleccionado = producto;
+
+}
+
+cerrarModal() {
+
+  this.productoSeleccionado = null;
+
+}
+
+detenerCierre(event: Event) {
+
+  event.stopPropagation();
 
 }
 }

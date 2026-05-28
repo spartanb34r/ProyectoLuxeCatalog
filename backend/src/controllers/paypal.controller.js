@@ -1,7 +1,5 @@
-const {
-  createPaypalOrder,
-  capturePaypalOrder
-} = require('../service/paypal.service.js');
+const { createPaypalOrder, capturePaypalOrder } = require('../service/paypal.service.js');
+const { enviarFactura } = require('../utils/email.js');
 
 const conexion =
   require('../config/db.js');
@@ -70,12 +68,22 @@ async function captureOrder(req, res) {
       usuario
     } = req.body;
 
-    console.log('BODY RECIBIDO:', req.body);
+    console.log(
+      'BODY RECIBIDO:',
+      req.body
+    );
+
+    // =========================
+    // VALIDAR ORDER ID
+    // =========================
 
     if (!orderId) {
 
       return res.status(400).json({
-        error: 'orderId es obligatorio'
+
+        error:
+          'orderId es obligatorio'
+
       });
 
     }
@@ -87,22 +95,31 @@ async function captureOrder(req, res) {
     if (!usuario) {
 
       return res.status(400).json({
-        error: 'Usuario no enviado desde frontend'
+
+        error:
+          'Usuario no enviado'
+
       });
 
     }
 
-    console.log('USUARIO RECIBIDO:', usuario);
+    console.log(
+      'USUARIO RECIBIDO:',
+      usuario
+    );
 
     // =========================
-    // CAPTURAR PAGO PAYPAL
+    // CAPTURAR PAYPAL
     // =========================
 
     const captureData =
-      await capturePaypalOrder(orderId);
+
+      await capturePaypalOrder(
+        orderId
+      );
 
     console.log(
-      'Status PayPal capture:',
+      'Status PayPal:',
       captureData.status
     );
 
@@ -110,12 +127,17 @@ async function captureOrder(req, res) {
     // TEXTO PRODUCTOS
     // =========================
 
-    const productosTexto = (items || [])
+    const productosTexto =
+
+      (items || [])
+
       .map(item =>
 
-        `${item.name} (${item.cantidad || 1})`
+        `${item.name}
+        (${item.cantidad || 1})`
 
       )
+
       .join(', ');
 
     // =========================
@@ -123,6 +145,7 @@ async function captureOrder(req, res) {
     // =========================
 
     const [pedidoResult] =
+
       await conexion.query(
 
         `
@@ -141,16 +164,11 @@ async function captureOrder(req, res) {
 
       );
 
-    console.log(
-      'Pedido insertado:',
-      pedidoResult
-    );
-
     const idPedido =
       pedidoResult.insertId;
 
     console.log(
-      'ID Pedido:',
+      'Pedido insertado:',
       idPedido
     );
 
@@ -173,9 +191,9 @@ async function captureOrder(req, res) {
       `,
 
       [
+
         idPedido,
 
-        // AQUÍ ESTABA EL ERROR
         usuario.id ||
 
         usuario.id_usuario ||
@@ -187,6 +205,7 @@ async function captureOrder(req, res) {
         productosTexto,
 
         total
+
       ]
 
     );
@@ -217,7 +236,108 @@ async function captureOrder(req, res) {
       );
 
       console.log(
-        `Stock actualizado para producto ${item.id}`
+
+        `Stock actualizado:
+        ${item.id}`
+
+      );
+
+    }
+
+    // =========================
+    // GENERAR XML
+    // =========================
+
+    const fecha =
+
+      new Date()
+      .toLocaleString('es-MX');
+
+    let xml =
+
+`<?xml version="1.0" encoding="UTF-8"?>
+
+<factura>
+
+  <empresa>
+
+    <nombre>Luxe Catalog</nombre>
+
+    <rfc>LUX010101AAA</rfc>
+
+  </empresa>
+
+  <cliente>
+
+    <nombre>${usuario.usuario}</nombre>
+
+  </cliente>
+
+  <compra>
+
+    <fecha>${fecha}</fecha>
+
+    <productos>
+`;
+
+    for (const item of items) {
+
+      xml +=
+
+`
+      <producto>
+
+        <id>${item.id}</id>
+
+        <nombre>${item.name}</nombre>
+
+        <precio>${item.price}</precio>
+
+        <cantidad>${item.cantidad || 1}</cantidad>
+
+      </producto>
+`;
+
+    }
+
+    xml +=
+
+`
+    </productos>
+
+    <total>${total}</total>
+
+  </compra>
+
+</factura>
+`;
+
+    // =========================
+    // ENVIAR FACTURA
+    // =========================
+
+    if (usuario.correo) {
+
+      await enviarFactura(
+
+        usuario.correo,
+
+        xml
+
+      );
+
+      console.log(
+
+        'Factura enviada a:',
+
+        usuario.correo
+
+      );
+
+    } else {
+
+      console.log(
+        'Usuario sin correo'
       );
 
     }
@@ -232,6 +352,11 @@ async function captureOrder(req, res) {
 
       pedidoGuardado: true,
 
+      facturaEnviada: true,
+
+      mensaje:
+        'Factura enviada a su correo',
+
       idPedido,
 
       captureData
@@ -241,8 +366,11 @@ async function captureOrder(req, res) {
   } catch (error) {
 
     console.error(
+
       'Error en captureOrder:',
+
       error
+
     );
 
     res.status(500).json({

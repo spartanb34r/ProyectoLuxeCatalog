@@ -69,6 +69,11 @@ implements AfterViewInit, OnInit {
 
   mensaje = '';
 
+  mostrarMensaje = false;
+
+  tipoMensaje: 'success' | 'error' =
+    'success';
+
   usuario: any = null;
 
   procesandoPago = false;
@@ -97,6 +102,11 @@ implements AfterViewInit, OnInit {
       this.usuario =
         JSON.parse(user);
 
+      console.log(
+        'USUARIO:',
+        this.usuario
+      );
+
     }
 
   }
@@ -115,6 +125,25 @@ implements AfterViewInit, OnInit {
 
   }
 
+  mostrarAlerta(
+    mensaje: string,
+    tipo: 'success' | 'error'
+  ) {
+
+    this.mensaje = mensaje;
+
+    this.tipoMensaje = tipo;
+
+    this.mostrarMensaje = true;
+
+    setTimeout(() => {
+
+      this.mostrarMensaje = false;
+
+    }, 3500);
+
+  }
+
   private renderPaypalButton(): void {
 
     if (
@@ -127,8 +156,10 @@ implements AfterViewInit, OnInit {
       typeof paypal === 'undefined'
     ) {
 
-      this.mensaje =
-        'No se cargó el SDK de PayPal.';
+      this.mostrarAlerta(
+        'No se cargó el SDK de PayPal.',
+        'error'
+      );
 
       return;
     }
@@ -173,8 +204,10 @@ implements AfterViewInit, OnInit {
             error
           );
 
-          this.mensaje =
-            'No se pudo crear la orden.';
+          this.mostrarAlerta(
+            'No se pudo crear la orden.',
+            'error'
+          );
 
           throw error;
 
@@ -186,7 +219,6 @@ implements AfterViewInit, OnInit {
         data: any
       ) => {
 
-        // EVITAR DOBLE CAPTURA
         if (
           this.procesandoPago
         ) {
@@ -221,20 +253,16 @@ implements AfterViewInit, OnInit {
             capture
           );
 
-          // DESCARGAR XML
-          this.carritoService
-            .exportarXML();
+          this.mostrarAlerta(
+            'Factura enviada correctamente a tu correo',
+            'success'
+          );
 
-          this.mensaje =
-            'Pago realizado correctamente. Descargando factura...';
+          setTimeout(() => {
 
-          // VACIAR CARRITO
-          this.carritoService
-            .vaciar();
+  this.carritoService.vaciar();
 
-          // LIMPIAR BOTÓN PAYPAL
-          this.paypalButtonContainer
-            .nativeElement.innerHTML = '';
+}, 1000);
 
         } catch (error) {
 
@@ -243,8 +271,10 @@ implements AfterViewInit, OnInit {
             error
           );
 
-          this.mensaje =
-            'Ocurrió un error al capturar el pago.';
+          this.mostrarAlerta(
+            'Ocurrió un error al procesar el pago.',
+            'error'
+          );
 
         }
 
@@ -252,8 +282,10 @@ implements AfterViewInit, OnInit {
 
       onCancel: () => {
 
-        this.mensaje =
-          'El usuario canceló el pago.';
+        this.mostrarAlerta(
+          'El usuario canceló el pago.',
+          'error'
+        );
 
       },
 
@@ -266,8 +298,10 @@ implements AfterViewInit, OnInit {
           error
         );
 
-        this.mensaje =
-          'Error en el proceso de PayPal.';
+        this.mostrarAlerta(
+          'Error en el proceso de PayPal.',
+          'error'
+        );
 
       }
 

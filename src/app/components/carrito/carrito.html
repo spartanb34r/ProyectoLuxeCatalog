@@ -4,6 +4,12 @@
     Carrito
   </h2>
 
+  @if (carritoService.mensajeStock()) {
+  <div class="mensaje-error">
+    No hay suficiente stock disponible
+  </div>
+}
+
   @if (carrito().length === 0) {
 
     <p class="empty">
@@ -56,51 +62,24 @@
 
               <button
                 class="cantidad-btn"
-                (click)="
-                  decrementarEliminar(
-                    producto
-                  )
-                "
+                (click)="disminuir(producto)"
               >
                 -
               </button>
 
               <span class="cantidad-numero">
-
-                {{
-
-                  cantidadesEliminar[
-                    producto.id
-                  ] || 1
-
-                }}
+                {{ producto.cantidad }}
 
               </span>
 
               <button
                 class="cantidad-btn"
-                (click)="
-                  incrementarEliminar(
-                    producto
-                  )
-                "
+                (click)="aumentar(producto)"
               >
                 +
               </button>
 
             </div>
-
-            <!-- ELIMINAR -->
-            <button
-              class="btn danger"
-              (click)="
-                eliminarSeleccionados(
-                  producto
-                )
-              "
-            >
-              Eliminar
-            </button>
 
           </div>
 
