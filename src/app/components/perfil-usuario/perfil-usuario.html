@@ -1,0 +1,39 @@
+<section class="perfil">
+
+  <h1 class="nombre">
+    {{ usuario?.usuario }}
+  </h1>
+
+  <p class="correo">
+    {{ usuario?.correo }}
+  </p>
+
+  <hr />
+
+  <h2>Historial de pedidos</h2>
+
+  @if (pedidos.length === 0) {
+    <p>No tienes pedidos aún</p>
+  }
+
+  @for (p of pedidos; track $index) {
+
+    <div class="pedido">
+
+      <p><b>Pedido #{{ p.id_pedido }}</b></p>
+
+      <p><b>Total:</b> {{ p.precio_total }}</p>
+
+      <p><b>Productos:</b></p>
+
+      <ul>
+        @for (prod of p.productosArray; track $index) {
+          <li>{{ prod }}</li>
+        }
+      </ul>
+
+    </div>
+
+  }
+
+</section>

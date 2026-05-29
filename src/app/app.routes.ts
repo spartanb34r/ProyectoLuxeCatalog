@@ -8,6 +8,7 @@ import { inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import { authGuard } from './core/auth.guard';
+import { PerfilComponent } from './components/perfil-usuario/perfil-usuario';
 
 export const routes: Routes = [
   { path: 'login',      component: LoginComponent },
@@ -16,5 +17,6 @@ export const routes: Routes = [
   { path: 'catalogo',   component: CatalogoComponent, canActivate: [authGuard] },
   { path: 'carrito',    component: CarritoComponent,  canActivate: [authGuard] },
   { path: 'checkout',   component: CheckoutComponent, canActivate: [authGuard] },
+  { path: 'perfil-usuario', component: PerfilComponent, canActivate: [authGuard] },
   { path: '**',         redirectTo: 'login' }
 ];

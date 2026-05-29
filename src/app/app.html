@@ -3,9 +3,7 @@
 <header class="app-header">
 
   <div class="logo">
-
     LUXE CATALOG
-
   </div>
 
   <nav>
@@ -28,20 +26,32 @@
       </span>
     </a>
 
-
   </nav>
 
   <div class="user-section">
 
-    <span class="usuario">
-
+    <button
+      class="user-btn"
+      (click)="togglePerfilMenu(); $event.stopPropagation()"
+    >
       👤 {{ usuario?.usuario }}
-
-    </span>
-
-    <button class="logout-btn" (click)="logout()">
-      <span class="logout-text">Salir</span>
     </button>
+
+    @if (mostrarPerfilMenu) {
+
+      <div class="perfil-menu">
+
+        <button (click)="irPerfil()">
+          Ver perfil
+        </button>
+
+        <button (click)="logout()">
+          Cerrar sesión
+        </button>
+
+      </div>
+
+    }
 
   </div>
 

@@ -24,4 +24,20 @@ export class ProductosService {
     { headers }
   );
 }
+
+  getPedidos(idUsuario: number): Observable<any[]> {
+  const token = localStorage.getItem('token');
+
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token || ''}`
+  });
+
+  return this.http.get<any[]>(
+    `http://localhost:3000/api/pedidos`,
+    {
+      params: { id_usuario: idUsuario },
+      headers
+    }
+  );
+}
 }
